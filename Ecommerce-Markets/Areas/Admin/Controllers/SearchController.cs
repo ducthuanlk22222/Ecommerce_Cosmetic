@@ -20,22 +20,22 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             List<Product> ls = new List<Product>();
             if (string.IsNullOrEmpty(keyword) || keyword.Length < 1)
             {
-                return PartialView("ListProductsSearchPartial", null);
+                ls = _context.Products
+                    .AsNoTracking()
+                    .Include(x => x.Cat)
+                    .OrderByDescending(x => x.ProductId)
+                    .ToList();
+                return  PartialView("ListProductsSearchPartial", ls);
             }
+
             ls = _context.Products.AsNoTracking()
-                .Include(a => a.CatId)
+                .Include(a => a.Cat)
                 .Where(x => x.ProductName.Contains(keyword))
                 .OrderByDescending(x => x.ProductName)
                 .Take(10)
                 .ToList();
-            if(ls == null)
-            {
-                return PartialView("ListProductsSearchPartial", null);
-            }
-            else
-            {
-                return PartialView("ListProductsSearchPartial", ls);
-            }
+            return PartialView("ListProductsSearchPartial", ls);
+
         }
     }
 }

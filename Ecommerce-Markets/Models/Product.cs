@@ -32,6 +32,7 @@ namespace Ecommerce_Markets.Models
         public string? MetaKey { get; set; }
         public int? UnitsInStock { get; set; }
 
+        public virtual Category? Cat { get; set; }
         public virtual ICollection<AttributesPrice> AttributesPrices { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

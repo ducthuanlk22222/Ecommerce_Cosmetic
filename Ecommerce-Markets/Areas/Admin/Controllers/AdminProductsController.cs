@@ -37,7 +37,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             }
             else
             {
-                IsProducts = _context.Products.AsNoTracking().Include(x => x.CatId).OrderByDescending(x => x.ProductId).ToList();
+                IsProducts = _context.Products.AsNoTracking().Include(x => x.Cat).OrderByDescending(x => x.ProductId).ToList();
             }
 
             

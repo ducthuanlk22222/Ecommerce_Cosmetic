@@ -1,0 +1,177 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<Ecommerce_Markets.Models.Product>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh sách sản phẩm" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Danh sách sản phẩm : Trang @CurrentPage</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-affix m-v-5">
+                            <i class="prefix-icon anticon anticon-search opacity-04"></i>
+                            <input id="keyword" name="keyword" type="text" class="form-control" placeholder="Tìm kiếm">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-affix m-v-5">
+                            <div class="m-b-10 m-r-15">
+                                <select id="txtCatID" name="txtCatID" class="custom-select" style="min-width: 200px;" asp-items="ViewBag.DanhMuc">
+                                    <option disabled selected>Danh mục</option>
+                                    <option value="0">Tất cả</option>
+                                </select>
+                            </div>
+                            <div class="m-b-10">
+                                <select class="custom-select" style="min-width: 180px;">
+                                    <option disabled selected>Trạng thái</option>
+                                    <option value="all">Tất cả</option>
+                                    <option value="inStock">Còn hàng</option>
+                                    <option value="outOfStock">Đã hết</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 text-right">
+                <a class="btn btn-primary" asp-area="Admin" asp-action="Create" asp-controller="AdminProducts">
+                    <i class="anticon anticon-plus-circle m-r-5"></i>
+                    <span>Thêm sản phẩm</span>
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Danh mục</th>
+                        <th>Giá (VNĐ)</th>
+                        <th>Tồn kho</th>
+                        <th>Trạng thái </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="records_table">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ProductId</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="m-b-0 m-l-7">@item.ProductName</h6>
+                                    </div>
+                                </td>
+                                @if (item.CatId != null)
+                                {
+                                    <td>@item.ProductName</td>
+                                }
+
+                                @if (item.Price != null)
+                                {
+                                    <td>@item.Price.Value.ToString("#,##0")</td>
+                                }
+                                <td>@item.UnitsInStock</td>
+                                <td>
+                                    @if (item.UnitsInStock > 0)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Còn hàng</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                                            <div>Đã hết</div>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a class="btn btn-warning m-r-5" asp-area="Admin" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.ProductId">View</a>
+                                        <a class="btn btn-success m-r-5" asp-area="Admin" asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                                        <a class="btn btn-danger m-r-5" asp-area="Admin" asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminProducts" asp-route-CatID="@ViewBag.CurrentCateID" asp-action="Index" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            jQuery("#txtCatID").change(function() {
+                var catID = jQuery(this).children(":selected").attr("value");
+                catID = parseFloat(catID);
+                $('#txtCatID option').removeAttr('selected');
+                $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
+
+                $.ajax({
+                    url: '/Admin/AdminProducts/Filter',
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        CatID: catID
+                    },
+                    async: true,
+                    success: function(results) {
+                        if (results.status == "success") {
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('error');
+                    }
+                });
+            });
+            $("#keyword").keyup(function() 
+            {
+                var strkeyword = $('#keyword').val();
+                $.ajax({
+                    url: '/Admin/Search/FindProduct/',
+                    datatype: "json",
+                    type: "post",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+}

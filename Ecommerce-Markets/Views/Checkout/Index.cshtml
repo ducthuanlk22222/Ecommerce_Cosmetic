@@ -1,0 +1,178 @@
+﻿@model Ecommerce_Markets.ModelViews.MuaHangVM
+@{
+    ViewData["Title"] = "Mua hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Ecommerce_Markets.ModelViews.CartItem> Carts = ViewBag.GioHang;
+}
+
+
+<main class="main-content">
+    <div class="checkout-area section-space-y-axis-100">
+        <div class="container">
+            <form asp-controller="Checkout" asp-action="Index" method="post">
+                <input hidden asp-for="CustomerId" />
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+
+                        <div class="checkbox-form">
+                            <h3>THÔNG TIN ĐƠN HÀNG</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Họ và Tên</label>
+                                        <input asp-for="FullName" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Số điện thoại <span class="required">*</span></label>
+                                        <input asp-for="Phone" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Địa chỉ nhận hàng <span class="required">*</span></label>
+                                        <input asp-for="Address" placeholder="Địa chỉ nhận hàng" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="your-order">
+                            <h3>THÔNG TIN ĐƠN HÀNG</h3>
+                            <div class="your-order-table table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart-product-name">SẢN PHẨM</th>
+                                            <th class="cart-product-total">THÀNH TIỀN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Carts.Count() > 0)
+                                        {
+                                            foreach (var item in Carts)
+                                            {
+                                                <tr class="cart_item">
+                                                    <td class="cart-product-name">
+                                                        @item.product.ProductName<strong class="product-quantity">
+                                                            × @item.amount
+                                                        </strong>
+                                                    </td>
+                                                    <td class="cart-product-total"><span class="amount">@item.TotalMoney.ToString("#,##0") VNĐ</span></td>
+                                                </tr>
+                                            }
+                                        }
+
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="order-total">
+                                            <th>TỔNG ĐƠN HÀNG</th>
+                                            <td><strong><span class="amount">@Carts.Sum(x => x.TotalMoney).ToString("#,##0") VNĐ</span></strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <h5 style="color:red">Vui lòng chọn hình thức thanh toán</h5>
+                            <div class="payment-method">
+                                <div class="payment-accordion">
+                                    <div id="accordion">
+                                        <div class="card">
+                                            <div class="card-header" id="#payment-1">
+                                                <h5 class="panel-title">
+                                                    <a href="javascript:void(0)" class="" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true">
+                                                        Thanh toán khi giao hàng (COD)
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p>
+                                                        Khách hàng sẽ thanh toán khi nhận hàng
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header" id="#payment-2">
+                                                <h5 class="panel-title">
+                                                    <a href="javascript:void(0)" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
+                                                        Chuyển khoản qua ngân hàng
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p>
+                                                        Thông tin tài khoản ngân hàng
+                                                    </p>
+                                                    <p>Chủ tài khoản: Dương Phương Duy</p>
+                                                    <p>Số tài khoản: 0963102916 - Ngân hàng VietcomBank</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header" id="#payment-3">
+                                                <h5 class="panel-title">
+                                                    <a href="javascript:void(0)" class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false">
+                                                        Thanh toán qua MOMO
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                            <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p>Thông tin MOMO</p>
+                                                    <p>Chủ tài khoản: Dương Phương Duy</p>
+                                                    <p>Số điện thoại: 0963102916</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-button-payment">
+                                        <a href="dat-hang-thanh-cong.html" class="btn btn-secondary btn-primary-hover">XÁC NHẬN ĐẶT HÀNG</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('select').niceSelect();
+            $(function() {
+                $('#TinhThanh').change(function() {
+                    var locationid = $('#TinhThanh').val();
+                    $.ajax({
+                        url: '/Location/DistrictList',
+                        type: "GET",
+                        dataType : "JSON",
+                        data: { LocationId: locationid},
+                        success: function(districts) {
+                            $('#QuanHuyen').empty();
+                            $('#PhuongXa').empty();
+                            var strPhuongXa = '<option value = "" disabled selected> Phuong/Xa </option>';
+                            $('#PhuongXa').append(strPhuongXa);
+                            var strPhuongXa = '<option value = "" disabled selected> Quan/Huyen </option>'; 
+                            $.each(districts, function(i, item) {
+                                var option = '<option value ="' + item.locationId + '">' + item.name + '</option>';
+                                $("#QuanHuyen").append(option);
+
+                            });
+                            $('select').niceSelect('update');
+                        }
+                    })
+                })
+            })
+        })
+    </script>
+}

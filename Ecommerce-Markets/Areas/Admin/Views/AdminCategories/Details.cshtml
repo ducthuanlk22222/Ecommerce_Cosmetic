@@ -1,0 +1,102 @@
+﻿@model Ecommerce_Markets.Models.Category
+
+@{
+    ViewData["Title"] = "Xem chi tiết Danh mục : " + @Model.CatName;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-controller="AdminCategories" asp-area="Admin" asp-action="Index"></a>
+            <span class="breadcrumb-item active">Danh mục : @Model.CatName</span>
+        </nav>
+    </div>
+</div>
+
+<div class="page-header no-gutters has-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">TỔNG QUAN</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-option">HÌNH ẢNH</a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content m-t-15">
+    <div class="tab-pane fade show active" id="product-edit-basic">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <h6>THÔNG TIN DANH MỤC : @Model.CatName</h6>
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Tên danh mục:</td>
+                                <td class="text-dark font-weight-semibold">@Model.CatName</td>
+                            </tr>
+                            <tr>
+                                <td>Alias:</td>
+                                <td>@Model.Alias</td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái:</td>
+                                <td>
+                                    @if (Model.Published == true)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Published</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                                            <div>Not published</div>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h6>THÔNG TIN MÔ TẢ</h6>
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>Mô tả: </td>
+                            <td class="text-dark font-weight-semibold">@Model.Description</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="product-edit-option">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productSize">Tiêu đề: </label>
+                    @Model.Title
+                </div>
+                <div class="form-group">
+                    <img width="15%" height="15%" src="~/images/cates/@Model.Thumb" alt="@Model.Title" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="btn btn-success m-r-5" asp-action="Index">Quay lại</a>
+        <a class="btn btn-warning m-r-5" asp-action="Edit" asp-route-id="@Model.CatId">Sửa nhanh</a>
+
+    </div>
+</div>
+

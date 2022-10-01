@@ -1,0 +1,159 @@
+﻿@model Ecommerce_Markets.Models.TinDang
+
+@{
+    ViewData["Title"] = "Xem chi tiết bài viết : " + @Model.Title;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-controller="Home" asp-area="AdminTinDangs" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-controller="AdminTinDangs" asp-area="Admin" asp-action="Index"></a>
+            <span class="breadcrumb-item active">Thông tin của trang</span>
+        </nav>
+    </div>
+</div>
+
+<div class="page-header no-gutters has-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">TỔNG QUAN</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-option">ẢNH MINH HỌA</a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content m-t-15">
+    <div class="tab-pane fade show active" id="product-edit-basic">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <h6>THÔNG TIN BÀI VIẾT</h6>
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Tiêu đề:</td>
+                                <td class="text-dark font-weight-semibold">@Model.Title</td>
+                            </tr>
+                            <tr>
+                                <td>Alias:</td>
+                                <td>@Model.Alias</td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái:</td>
+                                <td>
+                                    @if (Model.Published == true)
+                                    {
+                                        <div class="alert alert-success">
+                                                <span class="alert-icon">
+                                                    <i class="anticon anticon-check-o"></i>
+                                                </span>
+                                                <span>Public</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-danger">
+                                            <div class="d-flex align-items-center justify-content-start">
+                                                <span class="alert-icon">
+                                                    <i class="anticon anticon-close-o"></i>
+                                                </span>
+                                                <span>Not Public</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.IsHot == true)
+                                    {
+                                        <div class="alert alert-success">
+                                                <span class="alert-icon">
+                                                    <i class="anticon anticon-check-o"></i>
+                                                </span>
+                                                <span>Tin nóng</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-danger">
+                                            <div class="d-flex align-items-center justify-content-start">
+                                                <span class="alert-icon">
+                                                    <i class="anticon anticon-close-o"></i>
+                                                </span>
+                                                <span>Tin nóng</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.IsNewfeed == true)
+                                    {
+                                        <div class="alert alert-success">
+                                            <div class="d-flex align-items-center justify-content-start">
+                                                <span class="alert-icon">
+                                                    <i class="anticon anticon-check-o"></i>
+                                                </span>
+                                                <span>Tin mới</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-danger">
+                                            <div class="d-flex align-items-center justify-content-start">
+                                                <span class="alert-icon">
+                                                    <i class="anticon anticon-close-o"></i>
+                                                </span>
+                                                <span>Tin mới</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ngày đăng:</td>
+                                <td>@Model.CreatedDate</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h6>THÔNG TIN MÔ TẢ</h6>
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>Mô tả: </td>
+                            <td class="text-dark font-weight-semibold">@Model.Contents</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="product-edit-option">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productSize">Tiêu đề: </label>
+                    @Model.Title
+                </div>
+                <div class="form-group">
+                    <img width="15%" height="15%" src="~/images/posts/@Model.Thumb" alt="@Model.Title" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="btn btn-success m-r-5" asp-action="Index">Quay lại</a>
+        <a class="btn btn-warning m-r-5" asp-action="Edit" asp-route-id="@Model.PostId">Sửa nhanh</a>
+
+    </div>
+</div>
+

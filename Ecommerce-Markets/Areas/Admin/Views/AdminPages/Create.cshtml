@@ -1,0 +1,105 @@
+﻿@model Ecommerce_Markets.Models.Page
+
+@{
+    ViewData["Title"] = "Tạo trang mới";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="Create" asp-controller="AdminPages" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                <span class="breadcrumb-item active">Thêm mới sản phẩm</span>
+            </div>
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">THÔNG TIN TRANG</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">THÔNG TIN SEO</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">MÔ TẢ</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productName">Tên trang mới</label>
+                        <input type="text" class="form-control" asp-for="PageName">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="ShortDesc">Ordering</label>
+                        <input type="text" class="form-control" asp-for="Ordering">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productBrand">Ảnh đại diện</label>
+                        <input name="fThumb" type="file" class="form-control-file" asp-for="Thumb">
+                        <span asp-validation-for="Thumb" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="Published" /> @Html.DisplayNameFor(model => model.Published)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productSize">Tiêu đề</label>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productColors">MetaDesc</label>
+                        <input type="text" class="form-control" asp-for="MetaDesc">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="productFit">MetaKey</label>
+                        <input type="text" class="form-control" asp-for="MetaKey">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-description">
+            <div class="card">
+                <div class="card-body">
+                    <label class="font-weight-semibold" for="Description">Mô tả</label>
+                    <input type="text" class="form-control" asp-for="Contents">
+                </div>
+            </div>
+        </div>
+        <div>
+            <a class="btn btn-info m-r-5" asp-action="Index">Quay lại</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <!-- page js -->
+    <script src="~/Adminassets/vendors/select2/select2.min.js"></script>
+    <script src="~/Adminassets/vendors/quill/quill.min.js"></script>
+    <script src="~/Adminassets/js/pages/e-commerce-product-edit.js"></script>
+
+}
+
+
+
+

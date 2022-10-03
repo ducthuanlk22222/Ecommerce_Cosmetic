@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Order> DanhSachDonHang = ViewBag.DonHang;
     var total = DanhSachDonHang.Sum(x => x.TotalMoney).ToString("#,##0");
-    //Ecommerce_Markets.ModelViews.ChangePasswordViewModel changePassword = new Ecommerce_Markets.ModelViews.ChangePasswordViewModel();
+    Ecommerce_Markets.ModelViews.ChangePasswordViewModel changePassword = new Ecommerce_Markets.ModelViews.ChangePasswordViewModel();
 }
 
 <main class="main-content">
@@ -121,9 +121,9 @@
                                 </div>
                             </div>
                         </div>
-                       @* <div class="tab-pane fade" id="account-details" role="tabpanel" aria-labelledby="account-details-tab">
+                       <div class="tab-pane fade" id="account-details" role="tabpanel" aria-labelledby="account-details-tab">
                             @await Html.PartialAsync("_ChangePasswordPartialView", changePassword)
-                        </div>*@
+                        </div>
                     </div>
                 </div>
             </div>

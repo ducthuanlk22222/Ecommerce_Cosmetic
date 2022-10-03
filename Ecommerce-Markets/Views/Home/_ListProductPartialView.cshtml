@@ -1,5 +1,6 @@
 ﻿@model List<Product>
 
+@*Danh sách sản phẩm*@
 @if (Model != null && Model.Count > 0)
 {
     <div class="product-item-wrap row">
@@ -10,7 +11,7 @@
                 <div class="product-item">
                     <div class="product-img img-zoom-effect">
                         <a href="@url">
-                            <img class="img-full" src="~/images/products/@item.Thumb" alt="@item.Title">
+                            <img src="~/images/products/@item.Thumb" alt="@item.Title">
                         </a>
                         <div class="product-add-action">
                             <ul>

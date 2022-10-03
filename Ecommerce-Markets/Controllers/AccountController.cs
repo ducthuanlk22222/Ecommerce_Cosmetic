@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using AspNetCoreHero.ToastNotification.Notyf;
 using Ecommerce_Markets.Extension;
 using Ecommerce_Markets.Helpper;
 using Ecommerce_Markets.Models;
@@ -163,7 +164,7 @@ namespace Ecommerce_Markets.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public async Task<IActionResult> Login(LoginViewModel customer, string? returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel customer)
         {
             try
             {
@@ -179,7 +180,7 @@ namespace Ecommerce_Markets.Controllers
                     string pass = (customer.Password + kh.Salt.Trim()).ToMD5();
                     if (kh.Password != pass)
                     {
-                        _notifyService.Success("Sai thông tin đăng nhập");
+                        _notifyService.Error("Sai thông tin đăng nhập");
                         return View(customer);
                     }
 
@@ -202,15 +203,10 @@ namespace Ecommerce_Markets.Controllers
                     ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(claimsPrincipal);
                     _notifyService.Success("Đăng nhập thành công!");
-                    if (!string.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Dashboard", "Account");
-                        
-                    }
+
+                    return RedirectToAction("Dashboard", "Account");
+
+
                 }
             }
             catch
@@ -226,6 +222,40 @@ namespace Ecommerce_Markets.Controllers
             HttpContext.SignOutAsync();
             HttpContext.Session.Remove("CustomerId");
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            try
+            {
+                var taikhoanID = HttpContext.Session.GetString("CustomerId");
+                if (taikhoanID == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                if (ModelState.IsValid)
+                {
+                    var taikhoan = _context.Customers.Find(Convert.ToInt32(taikhoanID));
+                    if (taikhoan == null) return RedirectToAction("Login", "Account");
+                    var pass = (model.PasswordNow.Trim() + taikhoan.Salt.Trim()).ToMD5();
+                    {
+                        string passnew = (model.Password.Trim() + taikhoan.Salt.Trim()).ToMD5();
+                        taikhoan.Password = passnew;
+                        _context.Update(taikhoan);
+                        _context.SaveChanges();
+                        _notifyService.Success("Đổi mật khẩu thành công");
+                        return RedirectToAction("Dashboard", "Account");
+                    }
+                }
+            }
+            catch
+            {
+                _notifyService.Error("Thay đổi mật khẩu không thành công");
+                return RedirectToAction("Dashboard", "Accounts");
+            }
+            _notifyService.Error("Thay đổi mật khẩu không thành công");
+            return RedirectToAction("Dashboard", "Accounts");
         }
     }
 }

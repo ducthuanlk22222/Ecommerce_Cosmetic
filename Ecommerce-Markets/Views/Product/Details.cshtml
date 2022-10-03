@@ -94,6 +94,7 @@
                                     <li class="add-to-cart">
                                         <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" href="javascript:void(0)">ADD TO CART</a>
                                         <input hidden asp-for="ProductId" />
+
                                     </li>
                                 </ul>
                                     <li class="wishlist-btn-wrap">
@@ -337,7 +338,7 @@
                                 {
                                     foreach (var item in lsProducts)
                                     {
-                                        string url = "";
+                                        string url = $"/{item.Alias}-{item.ProductId}.html";
                                         <div class="swiper-slide">
                                             <div class="product-item">
                                                 <div class="product-img img-zoom-effect">

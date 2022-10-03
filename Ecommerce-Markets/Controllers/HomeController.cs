@@ -26,8 +26,9 @@ namespace Ecommerce_Markets.Controllers
 
             List<ProductHomeVM> lsProductViews = new List<ProductHomeVM>();
 
-            var lsCats = _context.Categories.AsNoTracking()
-                .Where(x => x.Published == true && x.ParentId == 0)
+            var lsCats = _context.Categories
+                .AsNoTracking()
+                .Where(x => x.Published == true)
                 .OrderByDescending(x => x.Ordering)
                 .ToList();
             
@@ -37,23 +38,23 @@ namespace Ecommerce_Markets.Controllers
                 productHome.category = item;
                 productHome.lsProducts = lsProducts.Where(x => x.CatId == item.CatId).ToList();
                 lsProductViews.Add(productHome);
-            }
 
-            var advertise = _context.QuangCaos
+                var advertise = _context.QuangCaos
                 .AsNoTracking()
                 .FirstOrDefault(x => x.Active == true);
 
-            var news = _context.TinDangs
-                .AsNoTracking()
-                .Where(x => x.Published == true && x.IsNewfeed == true)
-                .OrderByDescending(x => x.CreatedDate)
-                .Take(3)
-                .ToList();
+                var news = _context.TinDangs
+                    .AsNoTracking()
+                    .Where(x => x.Published == true && x.IsNewfeed == true)
+                    .OrderByDescending(x => x.CreatedDate)
+                    .Take(3)
+                    .ToList();
 
-            model.Products = lsProductViews;
-            model.TinTucs = news;
-            model.quangcao = advertise;
-            ViewBag.AllProducts = lsProducts;
+                model.Products = lsProductViews;
+                model.TinTucs = news;
+                model.quangcao = advertise;
+                ViewBag.AllProducts = lsProducts;
+            }
             return View(model);
 
         }

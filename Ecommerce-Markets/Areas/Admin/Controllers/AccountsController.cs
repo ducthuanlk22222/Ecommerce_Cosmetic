@@ -45,25 +45,25 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login.html", Name = "Login")]
-        public async Task<IActionResult> AdminLogin(LoginViewModel model, string? returnUrl = null)
+        public async Task<IActionResult> AdminLogin(LoginViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     Account kh = _context.Accounts
+                    .AsNoTracking()
                     .Include(p => p.Role)
                     .SingleOrDefault(p => p.Email.ToLower() == model.UserName.ToLower().Trim());
 
                     if (kh == null)
                     {
-                        ViewBag.Error = "Thông tin đăng nhập chưa chính xác";
+                        _notyfService.Error("Thông tin đăng nhập chưa chính xác");
                     }
                     string pass = (model.Password.Trim());
-                    // + kh.Salt.Trim()
                     if (kh.Password.Trim() != pass)
                     {
-                        ViewBag.Error = "Thông tin đăng nhập chưa chính xác";
+                        _notyfService.Error("Thông tin đăng nhập chưa chính xác");
                         return View(model);
                     }
                     //đăng nhập thành công
@@ -92,7 +92,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
                     var userPrincipal = new ClaimsPrincipal(new[] { grandmaIdentity });
                     await HttpContext.SignInAsync(userPrincipal);
 
-
+                    _notyfService.Success("Đăng nhập thành công");
 
                     return RedirectToAction("Index", "AdminHome", new { Area = "Admin" });
                 }

@@ -61,7 +61,7 @@ namespace Ecommerce_Markets.Controllers
         {
             try
             {
-                var product = _context.Products.Include(x => x.CatId).FirstOrDefault(x => x.ProductId == id);
+                var product = _context.Products.Include(x => x.Cat).FirstOrDefault(x => x.ProductId == id);
                 if (product == null)
                 {
                     return RedirectToAction("Index");

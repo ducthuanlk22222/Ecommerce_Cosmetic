@@ -9,10 +9,12 @@ using Ecommerce_Markets.Models;
 using PagedList.Core;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Ecommerce_Markets.Helpper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_Markets.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminTinDangsController : Controller
     {
         private readonly dbMarketsContext _context;

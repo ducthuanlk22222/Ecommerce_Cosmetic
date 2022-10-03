@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce_Markets.Models;
 using PagedList.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_Markets.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminOrdersController : Controller
     {
         private readonly dbMarketsContext _context;
@@ -61,8 +63,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminOrders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderId,CustomerId,OrderDate,ShipDate,TransactStatusId,Deleted,Paid,PaymentDate,TotalMoney,PaymentId,Note,Address,LocationId,District,Ward")] Order order)
@@ -97,8 +97,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminOrders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("OrderId,CustomerId,OrderDate,ShipDate,TransactStatusId,Deleted,Paid,PaymentDate,TotalMoney,PaymentId,Note,Address,LocationId,District,Ward")] Order order)

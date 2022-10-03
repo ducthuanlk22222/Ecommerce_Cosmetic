@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ecommerce_Markets.Models;
 using PagedList.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_Markets.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminCustomersController : Controller
     {
         private readonly dbMarketsContext _context;
 
+        // variable
         public AdminCustomersController(dbMarketsContext context)
         {
             _context = context;
@@ -56,8 +54,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminCustomers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CustomerId,FullName,Birthday,Avatar,Address,Email,Phone,LocationId,District,Ward,CreateDate,Password,Salt,LastLogin,Active")] Customer customer)
@@ -71,7 +67,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // GET: Admin/AdminCustomers/Edit/5
+        // GET: Admin/AdminCustomers/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Customers == null)
@@ -87,9 +83,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // POST: Admin/AdminCustomers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Admin/AdminCustomers/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FullName,Birthday,Avatar,Address,Email,Phone,LocationId,District,Ward,CreateDate,Password,Salt,LastLogin,Active")] Customer customer)
@@ -122,7 +116,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // GET: Admin/AdminCustomers/Delete/5
+        // GET: Admin/AdminCustomers/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Customers == null)
@@ -140,7 +134,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             return View(customer);
         }
 
-        // POST: Admin/AdminCustomers/Delete/5
+        // POST: Admin/AdminCustomers/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -159,6 +153,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
         
+        //Customer Exists
         private bool CustomerExists(int id)
         {
           return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();

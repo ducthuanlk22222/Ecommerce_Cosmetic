@@ -9,10 +9,12 @@ using Ecommerce_Markets.Models;
 using PagedList.Core;
 using Ecommerce_Markets.Helpper;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_Markets.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminPagesController : Controller
     {
         private readonly dbMarketsContext _context;
@@ -60,8 +62,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminPages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PageId,PageName,Contents,Thumb,Published,Title,MetaDesc,MetaKey,Alias,CreatedDate,Ordering")] Page page, Microsoft.AspNetCore.Http.IFormFile fThumb)
@@ -102,8 +102,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminPages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PageId,PageName,Contents,Thumb,Published,Title,MetaDesc,MetaKey,Alias,CreatedDate,Ordering")] Page page, Microsoft.AspNetCore.Http.IFormFile fThumb)

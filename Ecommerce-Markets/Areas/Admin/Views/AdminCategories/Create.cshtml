@@ -10,12 +10,7 @@
             <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
             <span class="breadcrumb-item active">Tạo mới Danh mục</span>
         </div>
-        <div class="m-b-15">
-            <button class="btn btn-primary">
-                <i class="anticon anticon-save"></i>
-                <span>Save</span>
-            </button>
-        </div>
+        
     </div>
 </div>
 <form asp-action="Create" asp-controller="AdminCategories" method="post" enctype="multipart/form-data">
@@ -96,9 +91,10 @@
                 </div>
             </div>
         </div>
-        <div>
-            <a class="btn btn-info m-r-5" asp-action="Index">Quay lại</a>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
         </div>
+        
     </div>
 </form>
 

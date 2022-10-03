@@ -9,10 +9,12 @@ using Ecommerce_Markets.Models;
 using PagedList.Core;
 using Ecommerce_Markets.Helpper;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_Markets.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdminProductsController : Controller
     {
         private readonly dbMarketsContext _context;
@@ -33,7 +35,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             List<Product> IsProducts = new List<Product>();
             if(CatID != 0)
             {
-                IsProducts = _context.Products.AsNoTracking().Where(x=> x.CatId==CatID).Include(x => x.CatId).OrderByDescending(x => x.ProductId).ToList();
+                IsProducts = _context.Products.AsNoTracking().Where(x=> x.CatId==CatID).Include(x => x.Cat).OrderByDescending(x => x.ProductId).ToList();
             }
             else
             {
@@ -50,7 +52,8 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
 
             return View(models);
         }
-        
+
+        // Filter Categories in Products
         public IActionResult Filter(int CatID = 0)
         {
             var url = $"/Admin/AdminProducts?CatID={CatID}";
@@ -70,7 +73,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.CatId)
+                .Include(p => p.Cat)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -88,8 +91,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminProducts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
@@ -136,8 +137,6 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminProducts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,MetaDesc,MetaKey,UnitsInStock")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)

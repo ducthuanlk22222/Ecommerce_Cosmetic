@@ -53,7 +53,6 @@
 
 	<ItemGroup>
 		<Folder Include="Areas\Admin\Data\" />
-		<Folder Include="Areas\Admin\Models\" />
 		<Folder Include="wwwroot\images\cates\" />
 		<Folder Include="wwwroot\images\posts\" />
 		<Folder Include="wwwroot\images\pages\" />

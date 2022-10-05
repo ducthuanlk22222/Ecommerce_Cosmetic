@@ -103,13 +103,13 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             }
             return RedirectToAction("AdminLogin", "Accounts", new { Area = "Admin" });
         }
-        //[Route("logout.html", Name = "Logout")]
-        //public IActionResult AdminLogout()
-        //{
-        //    HttpContext.SignOutAsync();
-        //    HttpContext.Session.Remove("AccountId");
-        //    return RedirectToAction("AdminLogin", "Accounts", new { Area = "Admin" });
-        //}
+        [Route("logout.html", Name = "Logout")]
+        public IActionResult AdminLogout()
+        {
+            HttpContext.SignOutAsync();
+            HttpContext.Session.Remove("AccountId");
+            return RedirectToAction("AdminLogin", "Accounts", new { Area = "Admin" });
+        }
 
     }
 }

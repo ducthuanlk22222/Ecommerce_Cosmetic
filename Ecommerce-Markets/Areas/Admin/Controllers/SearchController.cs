@@ -37,5 +37,25 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             return PartialView("ListProductsSearchPartial", ls);
 
         }
+
+        public IActionResult FindCustomer(string keyword)
+        {
+            List<Customer> ls = new List<Customer>();
+            if(string.IsNullOrEmpty(keyword) || keyword.Length < 1)
+            {
+                ls = _context.Customers
+                    .AsNoTracking()
+                    .OrderByDescending(x => x.CustomerId)
+                    .ToList();
+                return PartialView("ListCustomerSearchPartial", ls);
+
+            }
+            ls = _context.Customers
+                .AsNoTracking()
+                .Where(x => x.FullName.Contains(keyword))
+                .OrderByDescending(x => x.CustomerId)
+                .ToList();
+            return PartialView("ListCustomerSearchPartial", ls);
+        }
     }
 }

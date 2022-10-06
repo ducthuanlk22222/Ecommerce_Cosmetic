@@ -23,8 +23,8 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         {
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             //Utilities.PAGE_SIZE 
-            var pageSize = 20;
-            var IsCustomers = _context.Customers.AsNoTracking().Include(x=> x.Location).OrderByDescending(x => x.CustomerId);
+            var pageSize = 7;
+            var IsCustomers = _context.Customers.AsNoTracking().OrderByDescending(x => x.CustomerId);
             PagedList<Customer> models = new PagedList<Customer>(IsCustomers, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
             return View(models);

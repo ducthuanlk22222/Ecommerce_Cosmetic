@@ -26,7 +26,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminProducts
-        public IActionResult Index(int page = 1, int CatID = 0)
+        public IActionResult Index(int page = 1, int CatID = 0, int StatusId = 0)
         {
             var pageNumber = page;
             //Utilities.PAGE_SIZE 
@@ -36,6 +36,15 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             if(CatID != 0)
             {
                 IsProducts = _context.Products.AsNoTracking().Where(x=> x.CatId==CatID).Include(x => x.Cat).OrderByDescending(x => x.ProductId).ToList();
+            }
+            else if (StatusId == 1)
+            {
+                IsProducts = _context.Products.AsNoTracking().Where(x => x.UnitsInStock > 0).Include(x => x.Cat).OrderByDescending(x => x.ProductId).ToList();
+            }
+            else if (StatusId == 2)
+            {
+                IsProducts = _context.Products.AsNoTracking().Where(x => x.UnitsInStock == 0).Include(x => x.Cat).OrderByDescending(x => x.ProductId).ToList();
+
             }
             else
             {
@@ -62,6 +71,17 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
                 url = $"/Admin/AdminProducts";
             }
             return Json(new {status="success", redirectUrl = url});
+        }
+
+        // Filter by Status in Products
+        public IActionResult StatusFilter(int Active)
+        {
+            var url = $"/Admin/AdminProducts?StatusId={Active}";
+            if (Active == 0)
+            {
+                url = $"/Admin/AdminProducts";
+            }
+            return Json(new { status = "success", redirectUrl = url });
         }
 
         // GET: Admin/AdminProducts/Details/5

@@ -34,24 +34,23 @@
                                 </select>
                             </div>
                             <div class="m-b-10">
-                                <select class="custom-select" style="min-width: 180px;">
+                                <select name="txtStatus" id="txtStatus" class="custom-select" style="min-width: 180px;">
                                     <option disabled selected>Trạng thái</option>
-                                    <option value="all">Tất cả</option>
-                                    <option value="inStock">Còn hàng</option>
-                                    <option value="outOfStock">Đã hết</option>
+                                    <option value="0">Tất cả</option>
+                                    <option value="1">Còn hàng</option>
+                                    <option value="2">Đã hết</option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-4 text-right">
+                        <a class="btn btn-primary" asp-area="Admin" asp-action="Create" asp-controller="AdminProducts">
+                            <i class="anticon anticon-plus-circle m-r-5"></i>
+                            <span>Thêm sản phẩm</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 text-right">
-                <a class="btn btn-primary" asp-area="Admin" asp-action="Create" asp-controller="AdminProducts">
-                    <i class="anticon anticon-plus-circle m-r-5"></i>
-                    <span>Thêm sản phẩm</span>
-                </a>
-            </div>
+            
         </div>
         <div class="table-responsive">
             <table class="table table-hover e-commerce-table">
@@ -154,6 +153,29 @@
                     }
                 });
             });
+                jQuery("#txtStatus").change(function () {
+                    var statusID = jQuery(this).children(':selected').attr('value');
+                    statusID = parseInt(statusID);
+                    $('#txtStatus option').removeAttr('selected');
+                    $("#txtStatus > [value=" + statusID + "]").attr("selected", "true");
+                    $.ajax({
+                        url: '/Admin/AdminProducts/StatusFilter',
+                        datatype: "json",
+                        type: "GET",
+                        data: {
+                            Active: statusID
+                        },
+                        async: true,
+                        success: function (results) {
+                            if (results.status == "success") {
+                                window.location.href = results.redirectUrl;
+                            }
+                        },
+                        error: function (xhr) {
+                            alert('error');
+                        }
+                    });
+                });
             $("#keyword").keyup(function() 
             {
                 var strkeyword = $('#keyword').val();

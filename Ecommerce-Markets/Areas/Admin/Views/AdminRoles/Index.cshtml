@@ -13,9 +13,9 @@
     </div>
 </div>
 <div class="col-lg-12 text-right">
-    <a class="btn btn-primary" asp-area="Admin" asp-action="Create" asp-controller="AdminRoles">
+    <a class="btn btn-success" asp-area="Admin" asp-action="Create" asp-controller="AdminRoles">
         <i class="anticon anticon-plus-circle m-r-5"></i>
-        <span>Thêm người dùng mới</span>
+        <span>Thêm mới</span>
     </a>
 </div>
 <div class="table-responsive">
@@ -38,11 +38,9 @@
                         <td>@item.RoleName</td>
                         <td>@item.Description</td>
                         <td>
-                            <a class="btn btn-warning m-r-5" asp-area="Admin" asp-controller="AdminRoles" asp-action="Details" asp-route-id="@item.RoleId">View</a>
-                            <a class="btn btn-success m-r-5" asp-area="Admin" asp-controller="AdminRoles" asp-action="Edit" asp-route-id="@item.RoleId">Edit</a>
-                            <a class="btn btn-danger m-r-5" asp-area="Admin" asp-controller="AdminRoles" asp-action="Delete" asp-route-id="@item.RoleId">Delete</a>
-
-
+                            <a class="btn btn-light" asp-area="Admin" asp-controller="AdminRoles" asp-action="Details" asp-route-id="@item.RoleId"><i class="fa-solid fa-eye"></i></a>
+                            <a class="btn btn-light" asp-area="Admin" asp-controller="AdminRoles" asp-action="Edit" asp-route-id="@item.RoleId"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-light" asp-area="Admin" asp-controller="AdminRoles" asp-action="Delete" asp-route-id="@item.RoleId"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                 }

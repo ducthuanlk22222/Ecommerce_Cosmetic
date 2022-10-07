@@ -29,7 +29,7 @@
                 </div>
             </div>
            <div class="col-lg-4 text-right">
-                <a class="btn btn-primary" asp-area="Admin" asp-action="Create" asp-controller="AdminPages">
+                <a class="btn btn-success" asp-area="Admin" asp-action="Create" asp-controller="AdminPages">
                     <i class="anticon anticon-plus-circle m-r-5"></i>
                     <span>Thêm trang mới</span>
                 </a>
@@ -71,10 +71,10 @@
                                         </div>
                                     }
                                 </td>
-                                 <td>
-                                    <a class="btn btn-warning m-r-5" asp-area="Admin" asp-controller="AdminPages" asp-action="Details" asp-route-id="@item.PageId">View</a>
-                                    <a class="btn btn-success m-r-5" asp-area="Admin" asp-controller="AdminPages" asp-action="Edit" asp-route-id="@item.PageId">Edit</a>
-                                    <a class="btn btn-danger m-r-5" asp-area="Admin" asp-controller="AdminPages" asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
+                                <td>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminPages" asp-action="Details" asp-route-id="@item.PageId"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminPages" asp-action="Edit" asp-route-id="@item.PageId"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminPages" asp-action="Delete" asp-route-id="@item.PageId"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         }

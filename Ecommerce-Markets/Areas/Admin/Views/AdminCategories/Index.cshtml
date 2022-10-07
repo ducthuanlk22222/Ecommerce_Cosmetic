@@ -16,9 +16,9 @@
 <div class="card">
     <div class="card-body">
         <div class="row m-b-30">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="d-md-flex">
-                    <div class="m-b-10">
+                    <div class="col-sm-1">
                         <select class="custom-select" style="min-width: 180px;">
                             <option disabled selected>Trạng thái</option>
                             <option value="all">Tất cả</option>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-lg-4 text-right">
-                <a class="btn btn-primary" asp-area="Admin" asp-action="Create" asp-controller="AdminCategories">
+                <a class="btn btn-success" asp-area="Admin" asp-action="Create" asp-controller="AdminCategories">
                     <i class="anticon anticon-plus-circle m-r-5"></i>
                     <span>Thêm mới</span>
                 </a>
@@ -56,31 +56,31 @@
                                 <td>@item.CatId</td>
                                 <td>
                                     <a target="_blank" href="@url">@item.CatName</a>
-                        </td>
-                        <td>@item.Ordering</td>
-                        <td>
-                            @if(item.Published == true)
-                            {
-                            <div class="d-flex align-items-center">
-                                <div class="badge badge-success badge-dot m-r-10"></div>
-                                <div>Published</div>
-                            </div>
-                            }
-                            else
-                            {
-                            <div class="d-flex align-items-center">
-                                <div class="badge badge-danger badge-dot m-r-10"></div>
-                                <div>Not Published</div>
-                            </div>
-                            }
-                        </td>
-                        <td>
-                            <a class="btn btn-warning m-r-5" asp-area="Admin" asp-controller="AdminCategories" asp-action="Details" asp-route-id="@item.CatId">View</a>
-                            <a class="btn btn-success m-r-5" asp-area="Admin" asp-controller="AdminCategories" asp-action="Edit" asp-route-id="@item.CatId">Edit</a>
-                            <a class="btn btn-danger m-r-5" asp-area="Admin" asp-controller="AdminCategories" asp-action="Delete" asp-route-id="@item.CatId">Delete</a>
-                        </td>
-                    </tr>
-                    }
+                                </td>
+                                <td>@item.Ordering</td>
+                                <td>
+                                    @if (item.Published == true)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Published</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                                            <div>Not Published</div>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminCategories" asp-action="Details" asp-route-id="@item.CatId"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminCategories" asp-action="Edit" asp-route-id="@item.CatId"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminCategories" asp-action="Delete" asp-route-id="@item.CatId"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
                     }
 
                 </tbody>

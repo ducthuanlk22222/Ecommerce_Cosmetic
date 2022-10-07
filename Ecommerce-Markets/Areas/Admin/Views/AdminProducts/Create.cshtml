@@ -4,21 +4,18 @@
     ViewData["Title"] = "Thêm mới";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="page-header">
+
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-controller="AdminProducts" asp-area="Admin" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-controller="AdminProducts" asp-area="Admin" asp-action="Index">Danh sách sản phẩm</a>
+        </nav>
+    </div>
+</div>
 <form asp-action="Create" asp-controller="AdminProducts" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="page-header no-gutters has-tab">
-        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
-            <div class="media align-items-center m-b-15">
-                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                 <span class="breadcrumb-item active">Thêm mới sản phẩm</span>
-            </div>
-            <div class="m-b-15">
-                <button class="btn btn-primary">
-                    <i class="anticon anticon-save"></i>
-                    <span>Save</span>
-                </button>
-            </div>
-        </div>
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cơ bản</a>
@@ -124,6 +121,7 @@
             </div>
         </div>
     </div>
+    <button type="button" class="btn btn-secondary btn-lg btn-block">Xác nhận thêm mới</button>
 </form>
 
 @section Scripts{

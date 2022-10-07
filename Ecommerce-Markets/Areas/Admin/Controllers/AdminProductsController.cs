@@ -36,6 +36,7 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             if(CatID != 0)
             {
                 IsProducts = _context.Products.AsNoTracking().Where(x=> x.CatId==CatID).Include(x => x.Cat).OrderByDescending(x => x.ProductId).ToList();
+            
             }
             else if (StatusId == 1)
             {
@@ -57,8 +58,9 @@ namespace Ecommerce_Markets.Areas.Admin.Controllers
             ViewBag.CurrentCateID = CatID;
             ViewBag.CurrentPage = pageNumber;
 
-            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CatId", "CatName", CatID);
 
+            ViewData["DanhMuc"] = new SelectList(_context.Categories, "CatId", "CatName", CatID);
+            //ViewData["StatusProducts"] = new SelectList(_context.Products, "UnitsInStock", );
             return View(models);
         }
 

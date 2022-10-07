@@ -1,58 +1,90 @@
-﻿@model Ecommerce_Markets.Models.Product
+﻿<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@model Ecommerce_Markets.Models.Product
 
 @{
     ViewData["Title"] = "Thông tin sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+
 <div class="page-header">
 
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a asp-controller="AdminProducts" asp-area="Admin" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
             <a class="breadcrumb-item" asp-controller="AdminProducts" asp-area="Admin" asp-action="Index">Danh sách sản phẩm</a>
             <span class="breadcrumb-item active">Thông tin sản phẩm : @Model.ProductName</span>
         </nav>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Thông tin sản phẩm : @Model.ProductName</h4>
-        <div class="table-responsive">
-            <table class="product-info-table m-t-20">
-                <tbody>
-                    <tr>
-                        <td>ID:</td>
-                        <td class="text-dark font-weight-semibold">@Model.ProductId</td>
-                    </tr>
-                    <tr>
-                        <td>Danh mục:</td>
-                        @if (Model.Cat != null)
-                        {
-                            <td>@Model.Cat.CatName</td>
-                        }
+<div class="page-header no-gutters has-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">TỔNG QUAN</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-option">HÌNH ẢNH</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#product-edit-description">CHI TIẾT</a>
+        </li>
+    </ul>
+</div>
+<div class="tab-content m-t-15">
+    <div class="tab-pane fade show active" id="product-edit-basic">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <h6>THÔNG TIN SẢN PHẨM : @Model.ProductName</h6>
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>ID:</td>
+                                <td class="text-dark font-weight-semibold">@Model.ProductId</td>
+                            </tr>
+                            <tr>
+                                <td>Danh mục:</td>
+                                @if (Model.Cat != null)
+                                {
+                                    <td>@Model.Cat.CatName</td>
+                                }
 
-                    </tr>
-                    <tr>
-                        <td>Tên sản phẩm:</td>
-                        <td>@Model.ProductName</td>
-                    </tr>
-                    <tr>
-                        <td>Mô tả:</td>
-                        <td>@Model.ShortDesc</td>
-                    </tr>
-                    <tr>
-                        <td>Giá bán:</td>
-                        <td>@Model.Price</td>
-                    </tr>
-                    <tr>
-                        <td>Giảm giá (%)</td>
-                        <td>@Model.Discount</td>
-                    </tr>
-                    <tr>
-                        <td>Active</td>
-                        <td>
-                            @if(Model.Active == true)
+                            </tr>
+                            <tr>
+                                <td>Tên sản phẩm:</td>
+                                <td>@Model.ProductName</td>
+                            </tr>
+                            <tr>
+                                <td>Giá bán:</td>
+                                <td>@Model.Price</td>
+                            </tr>
+                            <tr>
+                                <td>Giảm giá (%)</td>
+                                <td>@Model.Discount</td>
+                            </tr>
+                            <tr>
+                                <td>Active</td>
+                                <td>
+                                    @if (Model.Active == true)
                                     {
                                         <div class="d-flex align-items-center">
                                             <div class="badge badge-success badge-dot m-r-10"></div>
@@ -66,12 +98,12 @@
                                             <div>Not Active</div>
                                         </div>
                                     }
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>Hàng trong kho:</td>
-                        <td>
-                            @if(Model.UnitsInStock > 0)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hàng trong kho:</td>
+                                <td>
+                                    @if (Model.UnitsInStock > 0)
                                     {
                                         <div class="d-flex align-items-center">
                                             <div class="badge badge-success badge-dot m-r-10"></div>
@@ -85,12 +117,12 @@
                                             <div>Đã hết</div>
                                         </div>
                                     }
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>Bán chạy</td>
-                        <td>
-                            @if(Model.BestSellers == true)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bán chạy</td>
+                                <td>
+                                    @if (Model.BestSellers == true)
                                     {
                                         <div class="d-flex align-items-center">
                                             <div class="badge badge-success badge-dot m-r-10"></div>
@@ -104,12 +136,12 @@
                                             <div>Không</div>
                                         </div>
                                     }
-                                    </td>
-                    </tr>
-                    <tr>
-                        <td>Trang chủ</td>
-                        <td>
-                            @if(Model.HomeFlag == true)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Trang chủ</td>
+                                <td>
+                                    @if (Model.HomeFlag == true)
                                     {
                                         <div class="d-flex align-items-center">
                                             <div class="badge badge-success badge-dot m-r-10"></div>
@@ -123,47 +155,77 @@
                                             <div>Không</div>
                                         </div>
                                     }
-                                    </td>
-                    </tr>
-                    <tr>
-                        <td>Tiêu đề:</td>
-                        <td>@Model.Title</td>
-                    </tr>
-                    <tr>
-                        <td>Ảnh minh họa:</td>
-                        <td>
-                            <img width="15%" height="15%" src="~/images/products/@Model.Thumb" alt="@Model.Title" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>MetaDesc:</td>
-                        <td>@Model.MetaDesc</td>
-                    </tr>
-                    <tr>
-                        <td>MetaKey:</td>
-                        <td>@Model.MetaKey</td>
-                    </tr>
-                    <tr>
-                        <td>Ngày tạo:</td>
-                        <td>@Model.DateCreated</td>
-                    </tr>
-                    <tr>
-                        <td>Ngày chỉnh sửa:</td>
-                        <td>@Model.DateModified</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Mô tả sản phẩm:</td>
-                        <td>@Model.Description</td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a class="btn btn-info m-r-5" asp-action="Index">Quay lại</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h6>THÔNG TIN MÔ TẢ</h6>
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>Mô tả: </td>
+                            <td class="text-dark font-weight-semibold">@Model.Description</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    <div class="tab-pane fade" id="product-edit-option">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="font-weight-semibold" for="productSize">Tiêu đề: </label>
+                    @Model.Title
+                </div>
+                <div class="form-group">
+                    <img width="15%" height="15%" src="~/images/products/@Model.Thumb" alt="@Model.Title" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="product-edit-description">
+        <div class="card">
+            <div class="card-body">
+                <table class="product-info-table m-t-20">
+                    <tbody>
+                        <tr>
+                            <td>MetaDesc:</td>
+                            <td>@Model.MetaDesc</td>
+                        </tr>
+                        <tr>
+                            <td>MetaKey:</td>
+                            <td>@Model.MetaKey</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày tạo:</td>
+                            <td>@Model.DateCreated</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày chỉnh sửa:</td>
+                            <td>@Model.DateModified</td>
+                        </tr>
+
+                        <tr>
+                            <td>Mô tả sản phẩm:</td>
+                            <td>@Model.Description</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="btn btn-success m-r-5" asp-action="Index">Quay lại</a>
+        <a class="btn btn-warning m-r-5" asp-action="Edit" asp-route-id="@Model.CatId">Sửa nhanh</a>
+
+    </div>
 </div>
+
+
+*@

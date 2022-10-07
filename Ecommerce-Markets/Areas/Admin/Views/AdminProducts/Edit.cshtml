@@ -4,6 +4,16 @@
     ViewData["Title"] = "Chỉnh sửa sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="page-header">
+
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-controller="AdminProducts" asp-area="Admin" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-controller="AdminProducts" asp-area="Admin" asp-action="Index">Danh sách sản phẩm</a>
+            <span class="breadcrumb-item active">Thay đổi sản phẩm : @Model.ProductName</span>
+        </nav>
+    </div>
+</div>
 <form asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@Model.ProductId" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ProductId" />
@@ -11,18 +21,6 @@
     <input type="hidden" asp-for="DateCreated" />
 
     <div class="page-header no-gutters has-tab">
-        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
-            <div class="media align-items-center m-b-15">
-                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                 <span class="breadcrumb-item active">Chỉnh sửa sản phẩm</span>
-            </div>
-            <div class="m-b-15">
-                <button class="btn btn-primary">
-                    <i class="anticon anticon-save"></i>
-                    <span>Save</span>
-                </button>
-            </div>
-        </div>
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cơ bản</a>
@@ -42,10 +40,6 @@
                     <div class="form-group">
                         <label class="font-weight-semibold" for="productName">Tên sản phẩm</label>
                         <input type="text" class="form-control" asp-for="ProductName">
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-semibold" for="ShortDesc">Mô tả</label>
-                        <input type="text" class="form-control" asp-for="ShortDesc">
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -125,13 +119,20 @@
         </div>
         <div class="tab-pane fade" id="product-edit-description">
             <div class="card">
-                <div class="card-body">
-                    <label class="font-weight-semibold" for="Description">Mô tả</label>
-                    <input type="text" class="form-control" asp-for="Description">
+                <div class="form-group">
+                    <label for="Description">Mô tả</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" asp-for="Description" rows="3"></textarea>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </div>
 </form>
 
 @section Scripts{

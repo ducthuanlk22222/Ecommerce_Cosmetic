@@ -63,12 +63,10 @@
                                 {
                                     <td>@item.Location.Name</td>
                                 }
-
                                 <td>
-                                    <a class="btn btn-warning m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Details" asp-route-id="@item.CustomerId">View</a>
-                                    <a class="btn btn-success m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a>
-                                    <a OnClientClick='javascript:window.open('Default2.aspx','List','scrollbars=no,resizable=no,width=400,height=280'); return false;' class="btn btn-danger m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
-                                    
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Details" asp-route-id="@item.CustomerId"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="btn btn-light" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Edit" asp-route-id="@item.CustomerId"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a OnClientClick='javascript:window.open(' Default2.aspx','List','scrollbars=no,resizable =no,width =400,height =280'); return false;' class="btn btn-light" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Delete" asp-route-id="@item.CustomerId"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         }
